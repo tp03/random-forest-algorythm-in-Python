@@ -1,5 +1,5 @@
 from math import log
-from collections import defaultdict
+from collections import defaultdict, Counter
 from TreeNode import TreeNode
 import numpy as np
 from DataUtils import remove_ans, dataToList
@@ -8,7 +8,8 @@ class ID3:
 
     def __init__(self, input_data):
         self.data_list = dataToList(input_data)
-        self.answers, self.attributes = remove_ans(self.data_list, attributes_columns=True, ansLast = False)
+        self.answers, self.attributes = remove_ans(self.data_list, attributes_columns=True, ansLast = True)
+        self.most_common_answer = Counter(self.answers).most_common(1)[0][0]
         self.root = self.induce(list(range(len(self.attributes))), self.attributes, self.answers, list(range(len(self.answers))))
              
     def entropy(self, input):
@@ -65,8 +66,9 @@ class ID3:
         chosen_id = chosen_id[0]
         root = TreeNode(attribute_index=chosen_id)
         
-        if attribute_ids and chosen_id in attribute_ids:
-            attribute_ids.remove(chosen_id)
+        new_attribute_ids = attribute_ids.copy()
+        if attribute_ids and chosen_id in new_attribute_ids:
+            new_attribute_ids.remove(chosen_id)
 
         new_branches = defaultdict(list)
         for idx in answers_ids:
@@ -74,14 +76,14 @@ class ID3:
             new_branches[attr_val].append(idx)
 
         for attr_val, new_answers_ids in new_branches.items():
-            child_node = self.induce(attribute_ids, full_attribute_values, full_answers_values, new_answers_ids)
+            child_node = self.induce(new_attribute_ids, full_attribute_values, full_answers_values, new_answers_ids)
             root.add_child(attr_val, child_node)
         
         return root
     
     def randomize(self, infGains):
 
-        arg_count = round(np.sqrt(len(list(infGains.keys()))))
+        arg_count = max(1, round(np.sqrt(len(infGains))))
         chosen_idx = np.random.choice(list(infGains.keys()), arg_count, False)
         chosen_args = {}
         for index in chosen_idx:
@@ -108,6 +110,6 @@ class ID3:
             return tree_root.answer
         attribute_value = attributes[tree_root.attribute_index]
         if attribute_value not in tree_root.children:
-            return default_answer
+            return self.most_common_answer
         return self.classify(attributes, tree_root.children[attribute_value], default_answer)
 

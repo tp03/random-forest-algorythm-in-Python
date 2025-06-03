@@ -54,7 +54,7 @@ def branchesSetEntropy(attribute_values_column, answers): # attributes are a lis
 def infGain(answers, attribute_values_column): # attributes are one column of attributes
     return entropy(answers) - branchesSetEntropy(attribute_values_column, answers)
 
-def remove_ans(data,attributes_columns=True, ansLast=False):
+def remove_ans(data,attributes_columns=True, ansLast=True):
     answers = []
     attributes = []
     for line in data:
@@ -130,16 +130,16 @@ def classify(attributes, tree, default_answer=None):
         return default_answer
     return classify(attributes, tree.children[attribute_value], default_answer)
 
-# filePath = 'agaricus-lepiota.data'
-filePath = 'breast-cancer.data'
-train_data, test_data = divide_data(filePath, 0.6, randomise=True)
+filePath = 'car.data'
+train_data, test_data = divide_data(filePath, 0.75, randomise=True)
 tree = ID3_init(train_data)
 
 test_data = dataToList(test_data)
 test_answers, test_attributes = remove_ans(test_data, attributes_columns=False, ansLast = True)
+
 correct = 0
 for i in range(len(test_attributes)):
-    result = classify(test_attributes[i], tree, 'p')
+    result = classify(test_attributes[i], tree, ' <=50K')
     print(f"Expected: {test_answers[i]}, got: {result}")
     if result == test_answers[i]:
         correct += 1
