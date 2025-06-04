@@ -130,7 +130,7 @@ def classify(attributes, tree, default_answer=None):
         return default_answer
     return classify(attributes, tree.children[attribute_value], default_answer)
 
-filePath = 'car.data'
+filePath = 'nursery.data'
 train_data, test_data = divide_data(filePath, 0.75, randomise=True)
 tree = ID3_init(train_data)
 
