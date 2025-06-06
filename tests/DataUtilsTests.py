@@ -1,3 +1,8 @@
+"""
+Filename: DataUtilsTests.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Testy jednostkowe dla funkcji DataUtils.
+"""
 import unittest
 import os
 import sys

@@ -1,3 +1,8 @@
+"""
+Filename: RandomForestTests.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Testy jednostkowe dla klasy RandomForest.
+"""
 import unittest
 import sys
 sys.path.insert(0, '../')

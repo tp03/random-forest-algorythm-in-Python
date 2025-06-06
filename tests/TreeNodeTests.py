@@ -1,3 +1,8 @@
+"""
+Filename: TreeNodeTests.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Testy jednostkowe dla klasy TreeNode.
+"""
 import unittest
 import sys
 sys.path.insert(0, '../')

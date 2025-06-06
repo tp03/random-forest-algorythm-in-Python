@@ -1,3 +1,8 @@
+"""
+Filename: RouletteForest.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Implementacja algorytmu lasu decyzyjnego. Obsługuje budowę lasu oraz wybór najlepszego drzewa.
+"""
 from ID3 import ID3
 import numpy as np
 from DataUtils import dataToList, remove_ans

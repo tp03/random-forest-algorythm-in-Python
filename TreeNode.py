@@ -1,3 +1,8 @@
+"""
+Filename: TreeNode.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Implementacja węzła drzewa decyzyjnego.
+"""
 class TreeNode:
     def __init__(self, attribute_index=None, isLeaf=False, answer=None):
         self.attribute_index = attribute_index

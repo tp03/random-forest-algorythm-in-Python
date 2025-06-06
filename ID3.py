@@ -1,3 +1,8 @@
+"""
+Filename: ID3.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Implementacja algorytmu ID3 do budowy drzewa decyzyjnego.
+"""
 from math import log
 from collections import defaultdict, Counter
 from TreeNode import TreeNode

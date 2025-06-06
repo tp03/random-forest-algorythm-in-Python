@@ -1,3 +1,8 @@
+"""
+Filename: AlgorythmRunner.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Uruchamianie wielokrotnie wybranego algorytmu oraz prezentacja wyników.
+"""
 from DataUtils import divide_data, prepare_data
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier

@@ -1,3 +1,8 @@
+"""
+Filename: DataUtils.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Zestaw funkcji nardzędziowych do przetwarzania zbiorów danych.
+"""
 import random
 
 nursery_categories = {

@@ -1,3 +1,8 @@
+"""
+Filename: main.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Punkt wejściowy do uruchomienia algorytmu.
+"""
 from AlgorythmRunner import run_made_algorythm, run_sklearn_algorythms
 import random
 

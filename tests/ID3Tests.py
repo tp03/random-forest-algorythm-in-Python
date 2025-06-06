@@ -1,3 +1,8 @@
+"""
+Filename: ID3Tests.py
+Author: Tomasz Zalewski, Antoni Kowalski
+Description: Testy jednostkowe dla klasy ID3.
+"""
 import unittest
 import sys
 sys.path.insert(0, '../')
