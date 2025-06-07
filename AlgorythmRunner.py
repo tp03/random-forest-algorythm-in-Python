@@ -3,6 +3,7 @@ Filename: AlgorythmRunner.py
 Author: Tomasz Zalewski, Antoni Kowalski
 Description: Uruchamianie wielokrotnie wybranego algorytmu oraz prezentacja wyników.
 """
+
 from DataUtils import divide_data, prepare_data
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
@@ -11,9 +12,12 @@ import numpy as np
 import time
 import os
 
-def run_made_algorythm(data_name, re_runs, tree_count, seeds, type, use_train_data=False):
 
-    filePath = os.path.expanduser(f'~/Documents/uma/data/{data_name}.data')
+def run_made_algorythm(
+    data_name, re_runs, tree_count, seeds, type, use_train_data=False
+):
+
+    filePath = os.path.expanduser(f"./data/{data_name}.data")
     scores = []
 
     t = time.time()
@@ -22,11 +26,12 @@ def run_made_algorythm(data_name, re_runs, tree_count, seeds, type, use_train_da
         train_data, test_data = divide_data(filePath, seeds[i], 0.6, randomise=True)
         forest = RandomForest(tree_count, train_data, type)
         if use_train_data is True:
+            # użycie zbioru treningowego dla testu przeuczenia
             scores.append(forest.predict(train_data))
-        else:    
+        else:
             scores.append(forest.predict(test_data))
 
-    elapsed = time.time() - t    
+    elapsed = time.time() - t
 
     print("Our RF:\n")
     print(f"Min: {min(scores)}\n")
@@ -38,16 +43,15 @@ def run_made_algorythm(data_name, re_runs, tree_count, seeds, type, use_train_da
 
 def run_sklearn_algorythms(data_name, re_runs, tree_count, seeds, type):
 
-    filePath = os.path.expanduser(f'~/Documents/uma/data/{data_name}_fixed.data')
+    filePath = os.path.expanduser(f"./data/{data_name}_fixed.data")
 
     scores_rf = []
     scores_svm = []
 
-
     t_rf = time.time()
 
     for i in range(re_runs):
-        train_data, test_data = divide_data(filePath, seeds[i], 0.6, randomise=True)  
+        train_data, test_data = divide_data(filePath, seeds[i], 0.6, randomise=True)
         train_answers, train_attributes = prepare_data(train_data)
         test_answers, test_attributes = prepare_data(test_data)
 
@@ -59,22 +63,21 @@ def run_sklearn_algorythms(data_name, re_runs, tree_count, seeds, type):
         for i in range(len(forest_pred)):
             if forest_pred[i] == test_answers[i]:
                 correct_rf += 1
-        scores_rf.append(correct_rf/len(forest_pred)) 
+        scores_rf.append(correct_rf / len(forest_pred))
 
-    elapsed_rf = time.time() - t_rf   
+    elapsed_rf = time.time() - t_rf
 
     print("Sklearn RF:\n")
     print(f"Min: {min(scores_rf)}\n")
     print(f"Max: {max(scores_rf)}\n")
     print(f"Mean: {np.mean(scores_rf)}\n")
-    print(f"Std: {np.std(scores_rf)}\n")  
+    print(f"Std: {np.std(scores_rf)}\n")
     print(f"Time: {elapsed_rf}")
-
 
     t_svm = time.time()
 
     for i in range(re_runs):
-        train_data, test_data = divide_data(filePath, seeds[i], 0.6, randomise=True)  
+        train_data, test_data = divide_data(filePath, seeds[i], 0.6, randomise=True)
         train_answers, train_attributes = prepare_data(train_data)
         test_answers, test_attributes = prepare_data(test_data)
 
@@ -85,16 +88,13 @@ def run_sklearn_algorythms(data_name, re_runs, tree_count, seeds, type):
         for i in range(len(forest_pred)):
             if svm_pred[i] == test_answers[i]:
                 correct_svm += 1
-        scores_svm.append(correct_svm/len(svm_pred)) 
+        scores_svm.append(correct_svm / len(svm_pred))
 
-    elapsed_svm = time.time() - t_svm    
+    elapsed_svm = time.time() - t_svm
 
     print("Sklearn SVM:\n")
     print(f"Min: {min(scores_svm)}\n")
     print(f"Max: {max(scores_svm)}\n")
     print(f"Mean: {np.mean(scores_svm)}\n")
-    print(f"Std: {np.std(scores_svm)}\n")    
-    print(f"Time: {elapsed_svm}") 
-                           
-            
-
+    print(f"Std: {np.std(scores_svm)}\n")
+    print(f"Time: {elapsed_svm}")
